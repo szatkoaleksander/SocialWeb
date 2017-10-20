@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    
+    <ProjectReference Include="../SocialWeb.Core/SocialWeb.Core.csproj" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>
