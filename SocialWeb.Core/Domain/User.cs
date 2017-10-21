@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SocialWeb.Core.Domain
 {
@@ -13,6 +14,7 @@ namespace SocialWeb.Core.Domain
         public string Role { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
+        public ICollection<Post> Posts { get; protected set; }
 
         public User(string email, string firstName, string LastName,
                     string password, string salt, string role)
@@ -24,6 +26,8 @@ namespace SocialWeb.Core.Domain
             SetPassword(password, salt);
             Role = role;
             CreatedAt = DateTime.UtcNow;
+
+            Posts = new List<Post>();
         }
 
         protected User() {}
