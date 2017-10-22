@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+
     <ProjectReference Include="../SocialWeb.Core/SocialWeb.Core.csproj" Version="2.0.0" />
   </ItemGroup>
 
