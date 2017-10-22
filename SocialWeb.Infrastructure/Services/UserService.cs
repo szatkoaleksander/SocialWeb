@@ -34,7 +34,17 @@ namespace SocialWeb.Infrastructure.Services
 
         public async Task RegisterAsync(string email, string firstName, string lastName, string password)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetAsync(email);
+
+            if(user != null)
+            {
+                throw new Exception("User is exists");
+            }
+
+            var salt = "test_salt";
+            user = new User(email, firstName, lastName, password, salt, "user");
+
+            await _userRepository.AddAsync(user);
         }
 
         public async Task DeleteAsync(Guid id)
