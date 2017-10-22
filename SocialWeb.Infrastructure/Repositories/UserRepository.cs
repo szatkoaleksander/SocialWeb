@@ -27,7 +27,7 @@ namespace SocialWeb.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task DeleteAsync(User user)
+        public async Task RemoveAsync(User user)
         {
             _user.Remove(user);
             await Task.CompletedTask;
