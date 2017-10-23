@@ -15,6 +15,7 @@ namespace SocialWeb.Core.Domain
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
         public ICollection<Post> Posts { get; protected set; }
+        public ICollection<Comment> Comments { get; protected set; }
 
         public User(string email, string firstName, string LastName,
                     string password, string salt, string role)
@@ -28,6 +29,7 @@ namespace SocialWeb.Core.Domain
             CreatedAt = DateTime.UtcNow;
 
             Posts = new List<Post>();
+            Comments = new List<Comment>();
         }
 
         protected User() {}
