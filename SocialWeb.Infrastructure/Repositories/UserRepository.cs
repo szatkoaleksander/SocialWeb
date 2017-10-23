@@ -11,9 +11,9 @@ namespace SocialWeb.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository, ISqlRepository
     {
-        private readonly UserContext _context;
+        private readonly EFContext _context;
 
-        public UserRepository(UserContext context)
+        public UserRepository(EFContext context)
         {
             _context = context;
         }
@@ -22,7 +22,8 @@ namespace SocialWeb.Infrastructure.Repositories
             => await _context.User.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<User> GetAsync(string email)
-            => await _context.User.SingleOrDefaultAsync(x => x.Email == email);
+            => await _context.User.Include(x => x.Posts).ThenInclude(x => x.Comments)
+                                  .Include(x => x.Comments).SingleOrDefaultAsync(x => x.Email == email);
 
         public async Task AddAsync(User user)
         {

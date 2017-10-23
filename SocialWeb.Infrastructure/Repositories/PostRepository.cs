@@ -2,33 +2,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
+using SocialWeb.Infrastructure.EF;
 
 namespace SocialWeb.Infrastructure.Repositories
 {
-    public class PostRepository : IPostRepository
+    public class PostRepository : IPostRepository, ISqlRepository
     {
-        private static ISet<Post> _post = new HashSet<Post>();
+        private readonly EFContext _context;
 
+        public PostRepository(EFContext context)
+        {
+            _context = context;
+        }        
+        
         public async Task<Post> GetAsync(Guid id)
-            => await Task.FromResult(_post.SingleOrDefault(x => x.Id == id));
+            => await _context.Post.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task AddAsync(Post post)
         {
-            _post.Add(post);
-            await Task.CompletedTask;
+            await _context.Post.AddAsync(post);
+            await _context.SaveChangesAsync();
         }
         
-        public Task UpdateAsync(Post post)
+        public async Task UpdateAsync(Post post)
         {
-            throw new NotImplementedException();
+            _context.Post.Update(post);
+            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(Post post)
         {
-            _post.Remove(post);
-            await Task.CompletedTask;
+            _context.Post.Remove(post);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -2,28 +2,35 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
+using SocialWeb.Infrastructure.EF;
 
 namespace SocialWeb.Infrastructure.Repositories
 {
-    public class CommentRepository : ICommentRepository
+    public class CommentRepository : ICommentRepository, ISqlRepository
     {
-        private static ISet<Comment> _comment = new HashSet<Comment>();
+        private readonly EFContext _context;
+
+        public CommentRepository(EFContext context)
+        {
+            _context = context;
+        } 
 
         public async Task AddAsync(Comment comment)
         {
-            _comment.Add(comment);
-            await Task.CompletedTask;
+            await _context.Comment.AddAsync(comment);
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(Comment comment)
+        public async Task UpdateAsync(Comment comment)
         {
-            throw new System.NotImplementedException();
+            _context.Comment.Update(comment);
+            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(Comment comment)
         {
-            _comment.Remove(comment);
-            await Task.CompletedTask;
+            _context.Comment.Remove(comment);
+            await _context.SaveChangesAsync();
         }
     }
 }
