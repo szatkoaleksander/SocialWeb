@@ -28,11 +28,12 @@ namespace SocialWeb.API.Controllers
              return Ok(user);
         }
 
+        [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody]CreateUser command)
         {
             await DispatchAsync(command);
            
-            return Created($"users/user.Username", null);
+            return Created($"users/user.Email", null);
         }
     }
 }
