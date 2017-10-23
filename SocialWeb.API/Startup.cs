@@ -42,7 +42,7 @@ namespace SocialWeb.API
                 .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddEntityFrameworkSqlServer()
-                .AddDbContext<UserContext>();
+                .AddDbContext<EFContext>();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
