@@ -2,35 +2,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
+using SocialWeb.Infrastructure.EF;
 
 namespace SocialWeb.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, ISqlRepository
     {
-        private static ISet<User> _user = new HashSet<User>();
+        private readonly UserContext _context;
+
+        public UserRepository(UserContext context)
+        {
+            _context = context;
+        }
 
         public async Task<User> GetAsync(Guid id)
-            => await Task.FromResult(_user.SingleOrDefault(x => x.Id == id));
+            => await _context.User.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<User> GetAsync(string email)
-            => await Task.FromResult(_user.SingleOrDefault(x => x.Email == email));
+            => await _context.User.SingleOrDefaultAsync(x => x.Email == email);
 
         public async Task AddAsync(User user)
         {
-           _user.Add(user);
-           await Task.CompletedTask;
+            await _context.User.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
-        public Task UpdateAsync(User user)
+        public async Task UpdateAsync(User user)
         {
-            throw new NotImplementedException();
+            _context.User.Update(user);
+            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(User user)
         {
-            _user.Remove(user);
-            await Task.CompletedTask;
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
         }
     }
 }
