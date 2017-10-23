@@ -4,7 +4,7 @@ using SocialWeb.Infrastructure.DTO;
 
 namespace SocialWeb.Infrastructure.Services
 {
-    public interface IPostService
+    public interface IPostService : IService
     {
         Task<PostDto> GetAsync(Guid id);
         Task AddAsync(string content, Guid userId);
