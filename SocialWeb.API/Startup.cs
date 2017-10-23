@@ -13,6 +13,8 @@ using Autofac.Extensions.DependencyInjection;
 using SocialWeb.Infrastructure.Mapper;
 using SocialWeb.Infrastructure.Repositories;
 using SocialWeb.Infrastructure.IoC.Modules;
+using SocialWeb.Infrastructure.IoC;
+using SocialWeb.Infrastructure.EF;
 
 namespace SocialWeb.API
 {
@@ -39,9 +41,14 @@ namespace SocialWeb.API
                 .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented)
                 .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<UserContext>();
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
+            builder.RegisterModule<CommandModule>();
             builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule<SqlModule>();
             builder.RegisterModule<ServiceModule>();
             ApplicationContainer = builder.Build();
 
