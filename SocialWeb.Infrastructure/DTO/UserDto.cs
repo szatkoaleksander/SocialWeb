@@ -11,5 +11,6 @@ namespace SocialWeb.Infrastructure.DTO
         public string LastName { get; set; }
         public string Role { get; protected set; }
         public ICollection<PostDto> Posts { get; set; }
+        public ICollection<CommentDto> Comments { get; set; }
     }
 }
