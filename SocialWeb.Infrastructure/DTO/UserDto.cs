@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SocialWeb.Infrastructure.DTO
 {
@@ -9,5 +10,6 @@ namespace SocialWeb.Infrastructure.DTO
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Role { get; protected set; }
+        public ICollection<PostDto> Posts { get; set; }
     }
 }
