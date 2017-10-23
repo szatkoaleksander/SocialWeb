@@ -6,7 +6,7 @@ using SocialWeb.Infrastructure.Services;
 
 namespace SocialWeb.API.Controllers
 {
-    
+    [Route("[controller]")]   
     public class UsersController : ApiControllerBase
     {
         private readonly IUserService _userService;

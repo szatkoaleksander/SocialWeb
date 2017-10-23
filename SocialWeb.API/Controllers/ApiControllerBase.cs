@@ -4,7 +4,6 @@ using SocialWeb.Infrastructure.Commands;
 
 namespace SocialWeb.API.Controllers
 {
-    [Route("[controller]")]
     public class ApiControllerBase : Controller
     {
         private readonly ICommandDispatcher _commandDispatcher;
