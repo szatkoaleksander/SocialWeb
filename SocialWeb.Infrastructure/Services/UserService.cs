@@ -76,6 +76,51 @@ namespace SocialWeb.Infrastructure.Services
             await _userRepository.AddAsync(user);
         }
 
+        public async Task ChangePasswordAsync(Guid id, string oldPassword, string newPassword)
+        {
+            var user = await _userRepository.GetAsync(id);
+
+            var salt = _encrypter.GetSalt(oldPassword);
+            var hash = _encrypter.GetHash(oldPassword, user.Salt);
+            
+            if(hash == null)
+            {
+                throw new Exception("Invalid credentials");
+            }
+
+            if(user.Password == hash)
+            {
+                salt = _encrypter.GetSalt(newPassword);
+                hash = _encrypter.GetHash(newPassword, salt);
+                
+                user.SetPassword(hash, salt);
+
+                await _userRepository.UpdateAsync(user);
+
+                return;
+            }
+
+            throw new Exception("Invalid credentials");
+        }
+
+        public async Task ChangeFirstNameAsync(Guid id, string newFirstName)
+        {
+            var user = await _userRepository.GetAsync(id);
+
+            user.SetFirstName(newFirstName);
+
+            await _userRepository.UpdateAsync(user);
+        }
+
+        public async Task ChangeLastNameAsync(Guid id, string newLastName)
+        {
+            var user = await _userRepository.GetAsync(id);
+
+            user.SetLastName(newLastName);
+
+            await _userRepository.UpdateAsync(user);
+        }
+
         public async Task DeleteAsync(Guid id)
         {
             var user = await _userRepository.GetAsync(id);

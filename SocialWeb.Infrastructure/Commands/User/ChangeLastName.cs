@@ -1,6 +1,6 @@
 namespace SocialWeb.Infrastructure.Commands.User
 {
-    public class ChangleLastName : AuthCommandBase
+    public class ChangeLastName : AuthCommandBase
     {
         public string NewLastName { get; set; }
     }
