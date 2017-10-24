@@ -1,6 +1,6 @@
 namespace SocialWeb.Infrastructure.Commands.User
 {
-    public class DeleteUser
+    public class DeleteUser : AuthCommandBase
     {
         
     }
