@@ -83,7 +83,7 @@ namespace SocialWeb.Core.Domain
                 throw new Exception("Password is to short");
             }
 
-            if(password.Length > 50)
+            if(password.Length > 200)
             {
                 throw new Exception("Password is to long");
             }
