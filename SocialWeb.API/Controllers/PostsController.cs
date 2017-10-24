@@ -18,8 +18,8 @@ namespace SocialWeb.API.Controllers
             _postService = postService;
         }
 
+        [Authorize]        
         [HttpGet]
-        [Authorize]
         [Route("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
