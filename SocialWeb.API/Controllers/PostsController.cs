@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Commands.Post;
@@ -18,6 +19,7 @@ namespace SocialWeb.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -32,6 +34,7 @@ namespace SocialWeb.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreatePost([FromBody]CreatePost command)
         {
             await DispatchAsync(command);

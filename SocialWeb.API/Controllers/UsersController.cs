@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Commands.User;
@@ -15,6 +16,7 @@ namespace SocialWeb.API.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
         [Route("{email}")]
         public async Task<IActionResult> Get(string email)
         {
