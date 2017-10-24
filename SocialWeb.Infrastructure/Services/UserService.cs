@@ -34,6 +34,31 @@ namespace SocialWeb.Infrastructure.Services
 
             return _mapper.Map<User, UserDto>(user);
         }
+        
+        public async Task LoginAsync(string email, string password)
+        {
+            var user = await _userRepository.GetAsync(email);
+
+            if(user == null)
+            {
+                throw new Exception("Invalid credentialssXDXDXDX");
+            }
+
+            var salt = _encrypter.GetSalt(password);
+            var hash = _encrypter.GetHash(password, user.Salt);
+
+            if(hash == null)
+            {
+                throw new Exception("Invalid credentials");
+            }
+
+            if(user.Password == hash)
+            {
+                return;
+            }
+
+            throw new Exception("Invalid credentials");
+        }
 
         public async Task RegisterAsync(string email, string firstName, string lastName, string password)
         {
