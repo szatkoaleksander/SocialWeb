@@ -6,8 +6,9 @@ namespace SocialWeb.Core.Repositories
 {
     public interface ICommentRepository : IRepository
     {
-         Task AddAsync(Comment comment);
-         Task UpdateAsync(Comment comment);
-         Task RemoveAsync(Comment comment);
+        Task<Comment> GetAsync(Guid id);
+        Task AddAsync(Comment comment);
+        Task UpdateAsync(Comment comment);
+        Task RemoveAsync(Comment comment);
     }
 }

@@ -30,5 +30,31 @@ namespace SocialWeb.Infrastructure.Services
 
             await _commentRepository.AddAsync(comment); 
         }
+
+        public async Task UpdateAsync(string content, Guid commentId, Guid userId)
+        {
+            var comment = await _commentRepository.GetAsync(commentId);
+
+            if(comment.UserId != userId)
+            {
+                throw new Exception("You can update comment");
+            }
+
+            comment.SetContent(content);
+
+            await _commentRepository.UpdateAsync(comment);
+        }
+
+        public async Task RemoveAsync(Guid commentId, Guid userId)
+        {
+            var comment = await _commentRepository.GetAsync(commentId);
+
+            if(comment.UserId != userId)
+            {
+                throw new Exception("You can remove comment");
+            }
+
+            await _commentRepository.RemoveAsync(comment);
+        }
     }
 }

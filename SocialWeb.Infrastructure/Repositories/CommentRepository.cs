@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
 using SocialWeb.Infrastructure.EF;
@@ -14,6 +16,9 @@ namespace SocialWeb.Infrastructure.Repositories
         {
             _context = context;
         } 
+
+        public async Task<Comment> GetAsync(Guid id)
+            => await _context.Comment.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task AddAsync(Comment comment)
         {
