@@ -35,7 +35,7 @@ namespace SocialWeb.Infrastructure.EF
             modelBuilder.Entity<Post>()
                 .HasMany(x => x.Comments)
                 .WithOne(x => x.Post)
-                .HasForeignKey(x => x.PostId);
+                .HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
