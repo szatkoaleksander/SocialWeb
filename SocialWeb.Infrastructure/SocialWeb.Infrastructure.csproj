@@ -9,7 +9,8 @@
     <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
-
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    
     <ProjectReference Include="../SocialWeb.Core/SocialWeb.Core.csproj" Version="2.0.0" />
   </ItemGroup>
 
