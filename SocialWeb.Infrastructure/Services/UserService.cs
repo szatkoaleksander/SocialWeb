@@ -121,7 +121,7 @@ namespace SocialWeb.Infrastructure.Services
             await _userRepository.UpdateAsync(user);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
             var user = await _userRepository.GetAsync(id);
 
