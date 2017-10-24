@@ -2,9 +2,8 @@ using System;
 
 namespace SocialWeb.Infrastructure.Commands.Post
 {
-    public class CreatePost : ICommand
+    public class CreatePost : AuthCommandBase
     {
         public string Content { get; set; }
-        public Guid UserId { get; set; }
     }
 }
