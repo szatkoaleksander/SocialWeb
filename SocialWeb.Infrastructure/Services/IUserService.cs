@@ -8,6 +8,7 @@ namespace SocialWeb.Infrastructure.Services
     {
         Task<UserDto> GetAsync(Guid id);
         Task<UserDto> GetAsync(string email);
+        Task LoginAsync(string email, string password);
         Task RegisterAsync(string email, string firstName, string lastName, string password);
         Task DeleteAsync(Guid id);
     }
