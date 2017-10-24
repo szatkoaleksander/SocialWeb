@@ -13,7 +13,8 @@ namespace SocialWeb.API.Controllers
     {
         private readonly IPostService _postService;
         
-        public PostsController(IPostService postService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public PostsController(IPostService postService, 
+            ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _postService = postService;
         }
@@ -33,13 +34,31 @@ namespace SocialWeb.API.Controllers
             return Ok(post);
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody]CreatePost command)
         {
             await DispatchAsync(command);
            
             return Created($"post/post.Id", null);
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> UpdatePost([FromBody]UpdatePost command)
+        {
+            await DispatchAsync(command);
+           
+            return Created($"post/post.Id", null);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> DeletePost([FromBody]DeletePost command)
+        {
+            await DispatchAsync(command);
+
+            return NoContent();
         }
     }
 }

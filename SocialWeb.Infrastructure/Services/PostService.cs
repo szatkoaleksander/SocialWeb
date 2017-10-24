@@ -36,9 +36,28 @@ namespace SocialWeb.Infrastructure.Services
             await _postRepository.AddAsync(post);
         }
 
-        public async Task RemoveAsync(Guid id)
+        public async Task UpdateAsync(string content, Guid userId, Guid postId)
         {
-            var post = await _postRepository.GetAsync(id); 
+            var post = await _postRepository.GetAsync(postId);
+
+            if(post.UserId != userId)
+            {
+                throw new Exception("You can not update post");
+            }
+
+            post.SetContent(content);
+            await _postRepository.UpdateAsync(post);
+        }
+
+        public async Task RemoveAsync(Guid userId, Guid postId)
+        {
+            var post = await _postRepository.GetAsync(postId);
+
+            if(post.UserId != userId)
+            {
+                throw new Exception("You can not delete post");
+            }
+            
             await _postRepository.RemoveAsync(post);
         }
     }

@@ -8,6 +8,7 @@ namespace SocialWeb.Infrastructure.Services
     {
         Task<PostDto> GetAsync(Guid id);
         Task AddAsync(string content, Guid userId);
-        Task RemoveAsync(Guid id);
+        Task UpdateAsync(string content, Guid userId, Guid postId);
+        Task RemoveAsync(Guid userId, Guid postId);
     }
 }
