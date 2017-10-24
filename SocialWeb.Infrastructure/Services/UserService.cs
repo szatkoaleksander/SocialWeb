@@ -4,17 +4,20 @@ using AutoMapper;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
 using SocialWeb.Infrastructure.DTO;
+using SocialWeb.Infrastructure.Services.Jwt;
 
 namespace SocialWeb.Infrastructure.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IEncrypter _encrypter;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IEncrypter encrypter, IMapper mapper)
         {
             _userRepository = userRepository;
+            _encrypter = encrypter;
             _mapper = mapper;
         }
 
@@ -41,8 +44,9 @@ namespace SocialWeb.Infrastructure.Services
                 throw new Exception("User is exists");
             }
 
-            var salt = "test_salt";
-            user = new User(email, firstName, lastName, password, salt, "user");
+            var salt = _encrypter.GetSalt(password);
+            var hash = _encrypter.GetHash(password, salt);
+            user = new User(email, firstName, lastName, hash, salt, "user");
 
             await _userRepository.AddAsync(user);
         }
