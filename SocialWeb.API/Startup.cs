@@ -15,6 +15,10 @@ using SocialWeb.Infrastructure.Repositories;
 using SocialWeb.Infrastructure.IoC.Modules;
 using SocialWeb.Infrastructure.IoC;
 using SocialWeb.Infrastructure.EF;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SocialWeb.API
 {
@@ -42,7 +46,34 @@ namespace SocialWeb.API
                 .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddEntityFrameworkSqlServer()
-                .AddDbContext<EFContext>();
+                .AddDbContext<EFContext>();  
+            
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+            });
+            
+            services.AddAuthentication(options =>  
+            {  
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;  
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
+            })  
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("000_cat_test_key_123")),  
+            
+                    ValidateIssuer = true,  
+                    ValidIssuer = "http://localhost:5000",
+            
+                    ValidateAudience = false,   
+                    ValidateLifetime = true,  
+            
+                    ClockSkew = TimeSpan.Zero 
+                };
+            });
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -55,7 +86,6 @@ namespace SocialWeb.API
             return new AutofacServiceProvider(ApplicationContainer);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
             IApplicationLifetime appLifetime)
         {
@@ -63,6 +93,8 @@ namespace SocialWeb.API
             loggerFactory.AddDebug();
 
             app.UseMvc();
+            app.UseAuthentication();
+            
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }
