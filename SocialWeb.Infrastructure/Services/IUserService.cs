@@ -13,6 +13,6 @@ namespace SocialWeb.Infrastructure.Services
         Task ChangePasswordAsync(Guid id, string oldPassword, string newPassword);
         Task ChangeFirstNameAsync(Guid id, string newFirstName);
         Task ChangeLastNameAsync(Guid id, string newLastName);
-        Task DeleteAsync(Guid id);
+        Task RemoveAsync(Guid id);
     }
 }
