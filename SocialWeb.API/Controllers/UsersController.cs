@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,20 @@ namespace SocialWeb.API.Controllers
         public UsersController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
+        }
+        
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var user = await _userService.GetAsync(id);
+
+            if(user == null)
+             {
+                 return NotFound();
+             }
+
+             return Ok(user);
         }
 
         [HttpGet]
