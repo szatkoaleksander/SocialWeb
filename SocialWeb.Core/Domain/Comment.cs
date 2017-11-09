@@ -33,7 +33,7 @@ namespace SocialWeb.Core.Domain
                 throw new Exception("Content can not be empty");
             }
 
-            if(content.Length > 5000)
+            if(content.Length > 4000)
             {
                 throw new Exception("Content is to long");
             }
