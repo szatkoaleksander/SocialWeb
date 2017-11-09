@@ -13,6 +13,8 @@ namespace SocialWeb.Infrastructure.Mapper
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<Post, PostDto>();
                 cfg.CreateMap<Comment, CommentDto>();
+                cfg.CreateMap<Follow, FollowFromDto>();
+                cfg.CreateMap<Follow, FollowToDto>();
             })
             .CreateMapper();
 
