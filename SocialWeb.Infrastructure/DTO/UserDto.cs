@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SocialWeb.Core.Domain;
 
 namespace SocialWeb.Infrastructure.DTO
 {
@@ -12,5 +13,7 @@ namespace SocialWeb.Infrastructure.DTO
         public string Role { get; protected set; }
         public ICollection<PostDto> Posts { get; set; }
         public ICollection<CommentDto> Comments { get; set; }
+        public ICollection<FollowToDto> Following { get; set; } 
+        public ICollection<FollowFromDto> Followers { get; set; }
     }
 }
