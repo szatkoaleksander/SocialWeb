@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Commands.Post;
+using SocialWeb.Infrastructure.Commands.User;
 using SocialWeb.Infrastructure.Services;
 
 namespace SocialWeb.API.Controllers
@@ -18,8 +19,7 @@ namespace SocialWeb.API.Controllers
         {
             _postService = postService;
         }
-
-        [Authorize]        
+      
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -33,7 +33,7 @@ namespace SocialWeb.API.Controllers
 
             return Ok(post);
         }
-
+ 
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody]CreatePost command)

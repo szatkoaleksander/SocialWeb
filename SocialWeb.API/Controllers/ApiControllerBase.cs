@@ -9,7 +9,7 @@ namespace SocialWeb.API.Controllers
     {
         private readonly ICommandDispatcher _commandDispatcher;
 
-       protected Guid UserId => User?.Identity?.IsAuthenticated == true ?
+        protected Guid UserId => User?.Identity?.IsAuthenticated == true ?
             Guid.Parse(User.Identity.Name) :
             Guid.Empty;
 
