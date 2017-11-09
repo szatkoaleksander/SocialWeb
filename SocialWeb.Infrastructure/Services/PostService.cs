@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using System.Linq;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
 using SocialWeb.Infrastructure.DTO;
@@ -11,13 +13,15 @@ namespace SocialWeb.Infrastructure.Services
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IFollowRepository _followRepository;
         private readonly IMapper _mapper;
 
         public PostService(IPostRepository postRepository,
-             IUserRepository userRepository, IMapper mapper)
+             IUserRepository userRepository, IMapper mapper, IFollowRepository followRepository)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
+            _followRepository = followRepository;
             _mapper = mapper;
         }
 
@@ -26,6 +30,34 @@ namespace SocialWeb.Infrastructure.Services
             var post = await _postRepository.GetAsync(id);
 
             return _mapper.Map<Post, PostDto>(post);
+        }
+
+        public async Task<IEnumerable<PostDto>> GetMainPostAsync(Guid userId)
+        {
+            
+            var post = await _postRepository.GetUserPostAsync(userId);
+            var following = await _followRepository.GetFollowingAsync(userId);
+
+            List<Post> posts = new List<Post>();
+            posts.AddRange(post);
+
+            foreach(var i in following)
+            {
+                post = await _postRepository.GetUserPostAsync(i.ToUserId);
+                posts.AddRange(post); 
+            }
+
+            posts.OrderBy(x => x.CreatedAt);
+
+            return _mapper.Map<IEnumerable<Post>, IEnumerable<PostDto>>(posts);
+        }
+
+        public async Task<IEnumerable<PostDto>> GetUserPostAsync(Guid userId)
+        {    
+            var posts = await _postRepository.GetUserPostAsync(userId);
+            posts.OrderBy(x => x.CreatedAt);
+
+            return _mapper.Map<IEnumerable<Post>, IEnumerable<PostDto>>(posts);
         }
 
         public async Task AddAsync(string content, Guid userId)
