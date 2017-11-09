@@ -19,7 +19,10 @@ namespace SocialWeb.Infrastructure.Repositories
         }        
         
         public async Task<Post> GetAsync(Guid id)
-            => await _context.Post.SingleOrDefaultAsync(x => x.Id == id);
+            => await _context.Post.Include(x => x.Comments).SingleOrDefaultAsync(x => x.Id == id);
+
+        public async Task<IEnumerable<Post>> GetUserPostAsync(Guid userId)
+            => await _context.Post.Include(x => x.Comments).Where(x => x.UserId == userId).ToListAsync();
 
         public async Task AddAsync(Post post)
         {
