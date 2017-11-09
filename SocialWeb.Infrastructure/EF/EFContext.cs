@@ -8,6 +8,7 @@ namespace SocialWeb.Infrastructure.EF
         public DbSet<User> User { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<Follow> Follow { get; set; }
 
         public EFContext(DbContextOptions<EFContext> options) 
             : base(options)
@@ -16,7 +17,7 @@ namespace SocialWeb.Infrastructure.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Server=mssql6.gear.host;User Id=socialweb;Password=Iv5UtZ13!-x0;Database=socialweb";
+            string connectionString = "Server= localhost; Database= socialweb; Integrated Security=True;";
             optionsBuilder.UseSqlServer(connectionString);
         }
 
@@ -25,13 +26,23 @@ namespace SocialWeb.Infrastructure.EF
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Posts)
                 .WithOne(x => x.User)
-                .HasForeignKey(x => x.UserId);
+                .HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Comments)
                 .WithOne(x => x.User)
-                .HasForeignKey(x => x.UserId);
-            
+                .HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Following)
+                .WithOne(x => x.FromUser)
+                .HasForeignKey(x => x.FromUserId);
+
+             modelBuilder.Entity<User>()
+                .HasMany(x => x.Followers)
+                .WithOne(x => x.ToUser)
+                .HasForeignKey(x => x.ToUserId);
+        
             modelBuilder.Entity<Post>()
                 .HasMany(x => x.Comments)
                 .WithOne(x => x.Post)
