@@ -6,7 +6,7 @@ using SocialWeb.Infrastructure.Commands.Comment;
 
 namespace SocialWeb.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("posts")]
     public class CommentsController : ApiControllerBase
     {
         public CommentsController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
@@ -15,6 +15,7 @@ namespace SocialWeb.API.Controllers
 
         [Authorize]
         [HttpPost]
+        [Route("{command.PostId}/comments")]
         public async Task<IActionResult> CreateComment([FromBody]CreateComment command)
         {
             await DispatchAsync(command);
@@ -24,6 +25,7 @@ namespace SocialWeb.API.Controllers
 
         [Authorize]
         [HttpPut]
+        [Route("{command.PostId}/comments/{command.CommentId}")]
         public async Task<IActionResult> UpdateComment([FromBody]UpdateComment command)
         {
             await DispatchAsync(command);
@@ -33,6 +35,7 @@ namespace SocialWeb.API.Controllers
         
         [Authorize]
         [HttpDelete]
+        [Route("{command.PostId}/comments/{command.CommentId}")]
         public async Task<IActionResult> DeleteComment([FromBody]DeleteComment command)
         {
             await DispatchAsync(command);

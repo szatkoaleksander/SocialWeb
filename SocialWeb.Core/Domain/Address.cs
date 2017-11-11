@@ -2,7 +2,7 @@ using System;
 
 namespace SocialWeb.Core.Domain
 {
-    public class Address
+    public class Address<T> where T : User
     {
         public Guid Id { get; protected set; }
         public string Country { get; protected set; }
@@ -12,6 +12,7 @@ namespace SocialWeb.Core.Domain
         public double Latitude { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
+        public T User { get; protected set; }
 
         public Address(string country, string city, string street, double longitude, double latitude)
         {
