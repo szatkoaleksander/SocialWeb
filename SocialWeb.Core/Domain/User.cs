@@ -18,15 +18,16 @@ namespace SocialWeb.Core.Domain
         public ICollection<Comment> Comments { get; protected set; }
         public ICollection<Follow> Following { get; protected set; }
         public ICollection<Follow> Followers { get; protected set; }
+        public ICollection<UserConversation> UserConversations { get; protected set; }
         public Address Address { get; protected set; }
 
-        public User(string email, string firstName, string LastName,
+        public User(string email, string firstName, string lastName,
                     string password, string salt, string role)
         {
             Id = Guid.NewGuid();
             SetEmail(email);
             SetFirstName(firstName);
-            SetLastName(LastName);
+            SetLastName(lastName);
             SetPassword(password, salt);
             Role = role;
             CreatedAt = DateTime.UtcNow;
@@ -35,6 +36,7 @@ namespace SocialWeb.Core.Domain
             Comments = new List<Comment>();
             Following = new List<Follow>();
             Followers = new List<Follow>();
+            UserConversations = new List<UserConversation>();
         }
 
         protected User() {}
