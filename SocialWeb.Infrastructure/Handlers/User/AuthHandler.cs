@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Commands.User;
 
 namespace SocialWeb.Infrastructure.Handlers.User

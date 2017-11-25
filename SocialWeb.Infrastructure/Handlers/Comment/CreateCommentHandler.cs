@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using SocialWeb.Infrastructure.Commands.Comment;
-using SocialWeb.Infrastructure.Commands.User;
+using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Services;
 
 namespace SocialWeb.Infrastructure.Handlers.Comment

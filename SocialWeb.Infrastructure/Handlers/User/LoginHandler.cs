@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Commands.User;
 using SocialWeb.Infrastructure.Extensions;
 using SocialWeb.Infrastructure.Services;
