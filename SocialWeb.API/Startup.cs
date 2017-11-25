@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +8,6 @@ using Newtonsoft.Json;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using SocialWeb.Infrastructure.Mapper;
-using SocialWeb.Infrastructure.Repositories;
 using SocialWeb.Infrastructure.IoC.Modules;
 using SocialWeb.Infrastructure.IoC;
 using SocialWeb.Infrastructure.EF;

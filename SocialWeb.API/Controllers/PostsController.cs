@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Commands.Post;
-using SocialWeb.Infrastructure.Commands.User;
 using SocialWeb.Infrastructure.Services;
 
 namespace SocialWeb.API.Controllers

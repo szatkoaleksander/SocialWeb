@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using SocialWeb.Infrastructure.Commands;
 using SocialWeb.Infrastructure.Commands.Post;
-using SocialWeb.Infrastructure.Commands.User;
 using SocialWeb.Infrastructure.Services;
 
 namespace SocialWeb.Infrastructure.Handlers.Post

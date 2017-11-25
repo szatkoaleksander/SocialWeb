@@ -1,5 +1,3 @@
-using System;
-
 namespace SocialWeb.Infrastructure.Commands.Post
 {
     public class CreatePost : AuthCommandBase

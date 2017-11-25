@@ -1,7 +1,6 @@
 using System.Reflection;
 using Autofac;
 using SocialWeb.Infrastructure.Commands;
-using SocialWeb.Infrastructure.Commands.User;
 
 namespace SocialWeb.Infrastructure.IoC
 {

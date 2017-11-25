@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
-using SocialWeb.Infrastructure.DTO;
 
 namespace SocialWeb.Infrastructure.Services
 {

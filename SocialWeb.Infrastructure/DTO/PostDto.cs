@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using SocialWeb.Core.Domain;
 
 namespace SocialWeb.Infrastructure.DTO
 {
