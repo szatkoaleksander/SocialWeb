@@ -1,7 +1,6 @@
-
 using System.Threading.Tasks;
 
-namespace SocialWeb.Infrastructure.Commands.User
+namespace SocialWeb.Infrastructure.Commands
 {
     public interface ICommandHandler<T> where T : ICommand
     {
