@@ -20,12 +20,12 @@ namespace SocialWeb.API.Controllers
         {
             await DispatchAsync(command);
 
-            return Created($"post/comment-comment.Id", null);
+            return Created($"posts/comment-comment.Id", null);
         }
 
         [Authorize]
         [HttpPut]
-        [Route("{command.PostId}/comments/{command.CommentId}")]
+        [Route("{command.PostId}/comments")]
         public async Task<IActionResult> UpdateComment([FromBody]UpdateComment command)
         {
             await DispatchAsync(command);
@@ -35,7 +35,7 @@ namespace SocialWeb.API.Controllers
         
         [Authorize]
         [HttpDelete]
-        [Route("{command.PostId}/comments/{command.CommentId}")]
+        [Route("{command.PostId}/comments")]
         public async Task<IActionResult> DeleteComment([FromBody]DeleteComment command)
         {
             await DispatchAsync(command);
