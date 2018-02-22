@@ -10,15 +10,13 @@ namespace SocialWeb.Core.Domain
         public ICollection<UserConversation> UserConversations { get; protected set; }
         public ICollection<Message> Messages { get; protected set; }
 
-        public Conversation(List<UserConversation> userConversations, List<Message> messages)
+        public Conversation()
         {
             Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;;
 
-            UserConversations = userConversations;
-            Messages = messages;
+            UserConversations = new List<UserConversation>();
+            Messages = new List<Message>();
         }
-
-        protected Conversation() { }
     }
 }
