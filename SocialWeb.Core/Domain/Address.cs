@@ -19,6 +19,9 @@ namespace SocialWeb.Core.Domain
         {
             Id = Guid.NewGuid();
 
+            Country = country;
+            City = city;
+            Street = street;
             Longitude = longitude;
             Latitude = latitude;
 
