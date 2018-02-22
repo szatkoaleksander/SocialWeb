@@ -15,6 +15,8 @@ namespace SocialWeb.Infrastructure.Mapper
                 cfg.CreateMap<Comment, CommentDto>();
                 cfg.CreateMap<Follow, FollowFromDto>();
                 cfg.CreateMap<Follow, FollowToDto>();
+                cfg.CreateMap<Conversation, ConversationDto>();
+                cfg.CreateMap<Message, MessageDto>();
             })
             .CreateMapper();
 
