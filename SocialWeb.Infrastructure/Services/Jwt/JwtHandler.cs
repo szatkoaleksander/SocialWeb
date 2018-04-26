@@ -27,7 +27,7 @@ namespace SocialWeb.Infrastructure.Services.Jwt
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString(), ClaimValueTypes.Integer64)
             };
 
-            var expires = now.AddMinutes(5);
+            var expires = now.AddMinutes(10000);
             var signiagCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes("000_cat_test_key_123")), SecurityAlgorithms.HmacSha256);
             
