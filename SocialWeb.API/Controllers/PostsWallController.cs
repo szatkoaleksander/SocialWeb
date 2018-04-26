@@ -7,7 +7,7 @@ using SocialWeb.Infrastructure.Services;
 
 namespace SocialWeb.API.Controllers
 {
-    [Route("")]
+    [Route("[Controller]")]
     public class PostsWallController : ApiControllerBase
     {
         private readonly IPostService _postService;
