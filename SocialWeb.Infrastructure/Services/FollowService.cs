@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using SocialWeb.Core.Domain;
 using SocialWeb.Core.Repositories;
+using System.Linq;
 
 namespace SocialWeb.Infrastructure.Services
 {
@@ -24,6 +25,13 @@ namespace SocialWeb.Infrastructure.Services
             if(fromUser == null || toUser == null) 
             {
                 throw new Exception("You can not follow this user");
+            }
+
+            var isFollow = await _followRepository.GetFollowingValidationAsync(fromUser.Id, toUser.Id);
+
+            if(isFollow > 0 )
+            {
+                throw new Exception("You followed this user");
             }
 
             var follow = new Follow(fromUser, toUser);
