@@ -20,6 +20,9 @@ namespace SocialWeb.Infrastructure.Repositories
 
         public async Task<IEnumerable<Follow>> GetFollowingAsync(Guid userId)
             => await _context.Follow.Where(x => x.FromUserId == userId).ToListAsync();
+             
+        public async Task<int> GetFollowingValidationAsync(Guid fromUserId, Guid toUserId)
+            => await _context.Follow.Where(x => x.FromUserId == fromUserId).Where(x => x.ToUserId == toUserId).CountAsync();
 
         public async Task AddFollowAsync(Follow follow)
         {
