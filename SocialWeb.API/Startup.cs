@@ -37,6 +37,8 @@ namespace SocialWeb.API
         {
             services.AddSingleton(AutoMapperConfig.Initialize());
 
+            services.AddCors();
+
             services.AddMvc()
                 .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented)
                 .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -87,6 +89,12 @@ namespace SocialWeb.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:3000")
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());   
 
             app.UseMvc();
             app.UseAuthentication();
