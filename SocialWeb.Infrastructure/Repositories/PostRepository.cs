@@ -22,7 +22,7 @@ namespace SocialWeb.Infrastructure.Repositories
             => await _context.Post.Include(x => x.Comments).SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<Post>> GetUserPostAsync(Guid userId)
-            => await _context.Post.Include(x => x.Comments).Where(x => x.UserId == userId).ToListAsync();
+            => await _context.Post.Include(x => x.Comments).Where(x => x.UserId == userId).OrderByDescending(x => x.UpdatedAt).ToListAsync();
 
         public async Task AddAsync(Post post)
         {
